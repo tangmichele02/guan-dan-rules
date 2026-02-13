@@ -128,7 +128,7 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         </ul>
 
         {/* Example */}
-        <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-lg">
+        <div className="mt-4 p-4 bg-red-50 border-2 border-red-500 rounded-lg">
           <h4 className="font-semibold text-sm mb-2">Example (Rank = 2)</h4>
 
           <ul className="list-disc ml-5 text-sm  space-y-1">
@@ -193,7 +193,7 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         </ul>
 
         {/* Example */}
-        <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-lg">
+        <div className="mt-4 p-4 bg-red-50 border-2 border-red-500 rounded-lg">
           <h4 className="font-semibold text-sm mb-2">Example</h4>
 
           <ul className="list-disc ml-5 text-sm space-y-1">
@@ -241,12 +241,16 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         </ul>
 
         {/* Example */}
-        <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-lg">
+        <div className="mt-4 p-4 bg-red-50 border-2 border-red-500 rounded-lg">
           <h4 className="font-semibold text-sm mb-2">Example (Rank = 3)</h4>
 
           <p className="text-sm">
-            Big Joker {'>'} Little Joker {'>'} <u>3</u> {'>'} A {'>'} K {'>'} Q {'>'} J {'>'} 10{' '}
-            {'>'} 9 {'>'} 8 {'>'} 7 {'>'} 6 {'>'} 5 {'>'} 4 {'>'} 2
+            Big Joker {'>'} Little Joker {'>'}{' '}
+            <b>
+              <u>3</u>
+            </b>{' '}
+            {'>'} A {'>'} K {'>'} Q {'>'} J {'>'} 10 {'>'} 9 {'>'} 8 {'>'} 7 {'>'} 6 {'>'} 5 {'>'} 4{' '}
+            {'>'} 2
           </p>
         </div>
       </section>

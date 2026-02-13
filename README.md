@@ -1,4 +1,4 @@
-# 掼蛋规则 - Guan Dan Rules
+# Guan Dan Rules
 
 A mobile-first web app for Guan Dan (掼蛋) card game rules and scoring.
 

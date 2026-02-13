@@ -15,8 +15,8 @@ export type Rank =
   | 'Q'
   | 'K'
   | 'A'
-  | '小王'
-  | '大王'
+  | 'Small Joker'
+  | 'Big Joker'
 
 interface CardProps {
   rank: Rank
@@ -25,8 +25,11 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ rank, suit, size = 'md' }) => {
-  const isRed = suit === '♥' || suit === '♦'
-  const isJoker = rank === '小王' || rank === '大王'
+  const isSmallJoker = rank === 'Small Joker'
+  const isBigJoker = rank === 'Big Joker'
+  const isJoker = isSmallJoker || isBigJoker
+
+  const isRed = rank === 'Big Joker' || suit === '♥' || suit === '♦'
 
   const sizeClasses = {
     sm: 'w-10 h-14 text-xs',
@@ -35,8 +38,8 @@ const Card: React.FC<CardProps> = ({ rank, suit, size = 'md' }) => {
   }
 
   return (
-    <div className={`card ${isRed || isJoker ? 'card-red' : 'card-black'} ${sizeClasses[size]}`}>
-      <div className="flex flex-col items-center">
+    <div className={`card ${isRed ? 'card-red' : 'card-black'} ${sizeClasses[size]}`}>
+      <div className="flex flex-col items-center text-center">
         <span className={isJoker ? 'text-xs' : ''}>{rank}</span>
         {suit && <span className="text-lg leading-none">{suit}</span>}
       </div>
