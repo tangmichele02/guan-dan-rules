@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Rules from './components/Rules'
 import Plays from './components/Plays'
 import Scoring from './components/Scoring'
@@ -22,12 +22,18 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
+  }, [activeTab])
+
   return (
     <div className="min-h-screen bg-paper-white">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold text-center text-ink-black">Guan Dan (掼蛋)</h1>
+          <h1 className="text-2xl font-bold text-center text-black">Guan Dan (掼蛋)</h1>
         </div>
       </header>
 

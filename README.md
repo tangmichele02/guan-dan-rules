@@ -67,8 +67,6 @@ Edit `tailwind.config.js` to customize the color scheme:
 
 ```javascript
 colors: {
-  'bold-red': '#DC143C',
-  'ink-black': '#1a1a1a',
   'paper-white': '#faf9f6',
 }
 ```

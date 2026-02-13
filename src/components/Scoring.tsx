@@ -157,53 +157,43 @@ const Scoring: React.FC = () => {
     const teamARanks = newTeamA.map((p) => Number(p.rank))
     const teamBRanks = newTeamB.map((p) => Number(p.rank))
 
-    const teamABestRank = Math.min(...teamARanks)
-    const teamBBestRank = Math.min(...teamBRanks)
+    const teamAHasFirst = teamARanks.includes(1)
+    const teamBHasFirst = teamBRanks.includes(1)
 
-    // Determine winner
-    if (teamABestRank < teamBBestRank) {
-      // Team A wins
-      let advancement = 1 // Single up by default
+    let winner: string | null = null
+    let winningRanks: number[] = []
 
-      if (playersPerTeam === 2) {
-        // 4-player game
-        if (teamARanks.includes(1) && teamARanks.includes(2)) {
-          advancement = 3 // Both finish 1st and 2nd
-        } else if (teamARanks.includes(1)) {
-          advancement = 2 // One finishes 1st (double up)
-        }
-      } else {
-        // 6-player game
-        if (teamARanks.includes(1) && teamARanks.includes(2) && teamARanks.includes(3)) {
-          advancement = 3 // All three finish 1st, 2nd, 3rd
-        } else if (teamARanks.filter((r) => r <= 2).length >= 2) {
-          advancement = 2 // Two finish in top 2
-        }
-      }
-
-      setResult({ winner: teamAName, advancement })
+    if (teamAHasFirst) {
+      winner = teamAName
+      winningRanks = teamARanks
+    } else if (teamBHasFirst) {
+      winner = teamBName
+      winningRanks = teamBRanks
     } else {
-      // Team B wins
-      let advancement = 1 // Single up by default
-
-      if (playersPerTeam === 2) {
-        // 4-player game
-        if (teamBRanks.includes(1) && teamBRanks.includes(2)) {
-          advancement = 3 // Both finish 1st and 2nd
-        } else if (teamBRanks.includes(1)) {
-          advancement = 2 // One finishes 1st (double up)
-        }
-      } else {
-        // 6-player game
-        if (teamBRanks.includes(1) && teamBRanks.includes(2) && teamBRanks.includes(3)) {
-          advancement = 3 // All three finish 1st, 2nd, 3rd
-        } else if (teamBRanks.filter((r) => r <= 2).length >= 2) {
-          advancement = 2 // Two finish in top 2
-        }
-      }
-
-      setResult({ winner: teamBName, advancement })
+      // Should never happen if inputs are valid
+      return
     }
+
+    let advancement = 1
+
+    if (playersPerTeam === 2) {
+      // 4 player game
+      const worst = Math.max(...winningRanks)
+
+      if (worst === 2) advancement = 3
+      else if (worst === 3) advancement = 2
+      else if (worst === 4) advancement = 1
+    } else {
+      // 6 player game
+      const worst = Math.max(...winningRanks)
+
+      if (worst === 3) advancement = 4
+      else if (worst === 4) advancement = 3
+      else if (worst === 5) advancement = 2
+      else if (worst === 6) advancement = 1
+    }
+
+    setResult({ winner, advancement })
   }
 
   const reset = () => {
@@ -222,16 +212,14 @@ const Scoring: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <h2 className="text-2xl font-bold mb-4 text-bold-red">Round Scoring</h2>
-
       {/* Game Mode Tabs */}
-      <div className="flex gap-2 bg-paper-white border-b-2 border-bold-red/20">
+      <div className="flex gap-2 bg-paper-white border-b-2 border-red-500">
         <button
           onClick={() => handleModeChange('4-player')}
           className={`flex-1 px-6 py-3 font-semibold transition-all ${
             gameMode === '4-player'
-              ? 'bg-bold-red text-white'
-              : 'bg-transparent text-ink-black hover:bg-bold-red/10'
+              ? 'bg-red-500 text-white'
+              : 'bg-transparent text-black hover:bg-red-400/10'
           }`}
         >
           4 Players
@@ -240,8 +228,8 @@ const Scoring: React.FC = () => {
           onClick={() => handleModeChange('6-player')}
           className={`flex-1 px-6 py-3 font-semibold transition-all ${
             gameMode === '6-player'
-              ? 'bg-bold-red text-white'
-              : 'bg-transparent text-ink-black hover:bg-bold-red/10'
+              ? 'bg-red-500 text-white'
+              : 'bg-transparent text-black hover:bg-red-500/10'
           }`}
         >
           6 Players
@@ -251,13 +239,13 @@ const Scoring: React.FC = () => {
       {/* Player Ranks Input */}
       <div className="grid grid-cols-2 gap-6">
         {/* Team A */}
-        <div className="space-y-3 bg-bold-red/5 p-4 rounded-lg">
-          <h3 className="text-sm font-bold text-ink-black text-center uppercase tracking-wide">
+        <div className="space-y-3 p-4 rounded-lg">
+          <h3 className="text-sm font-bold text-black text-center uppercase tracking-wide">
             {teamAName}
           </h3>
           {teamAPlayers.map((player, idx) => (
             <div key={`a-${idx}`}>
-              <label className="block text-xs font-semibold text-ink-black/70 mb-1">
+              <label className="block text-xs font-semibold text-black/70 mb-1">
                 Player {idx + 1}
               </label>
               <input
@@ -268,26 +256,26 @@ const Scoring: React.FC = () => {
                 onChange={(e) => updatePlayerRank('A', idx, e.target.value)}
                 className={`w-full px-3 py-3 text-center text-xl font-bold border-2 rounded-lg focus:outline-none focus:ring-2 bg-white ${
                   player.error
-                    ? 'border-bold-red text-bold-red focus:ring-bold-red'
-                    : 'border-ink-black/20 text-ink-black focus:ring-bold-red'
+                    ? 'border-red-500 text-red-500 focus:ring-red-500'
+                    : 'border-black/20 text-black focus:ring-red-500'
                 }`}
                 placeholder={`1-${maxRank}`}
               />
               {player.error && (
-                <p className="text-xs text-bold-red font-semibold mt-1">{player.error}</p>
+                <p className="text-xs text-red-500 font-semibold mt-1">{player.error}</p>
               )}
             </div>
           ))}
         </div>
 
         {/* Team B */}
-        <div className="space-y-3 bg-bold-red/5 p-4 rounded-lg">
-          <h3 className="text-sm font-bold text-ink-black text-center uppercase tracking-wide">
+        <div className="space-y-3  p-4 rounded-lg">
+          <h3 className="text-sm font-bold text-black text-center uppercase tracking-wide">
             {teamBName}
           </h3>
           {teamBPlayers.map((player, idx) => (
             <div key={`b-${idx}`}>
-              <label className="block text-xs font-semibold text-ink-black/70 mb-1">
+              <label className="block text-xs font-semibold text-black/70 mb-1">
                 Player {idx + 1}
               </label>
               <input
@@ -298,13 +286,13 @@ const Scoring: React.FC = () => {
                 onChange={(e) => updatePlayerRank('B', idx, e.target.value)}
                 className={`w-full px-3 py-3 text-center text-xl font-bold border-2 rounded-lg focus:outline-none focus:ring-2 bg-white ${
                   player.error
-                    ? 'border-bold-red text-bold-red focus:ring-bold-red'
-                    : 'border-ink-black/20 text-ink-black focus:ring-bold-red'
+                    ? 'border-red-500 text-red-500 focus:ring-red-500'
+                    : 'border-black/20 text-black focus:ring-red-500'
                 }`}
                 placeholder={`1-${maxRank}`}
               />
               {player.error && (
-                <p className="text-xs text-bold-red font-semibold mt-1">{player.error}</p>
+                <p className="text-xs text-red-500 font-semibold mt-1">{player.error}</p>
               )}
             </div>
           ))}
@@ -314,17 +302,17 @@ const Scoring: React.FC = () => {
       {/* Submit Button */}
       <button
         onClick={validateAndCalculate}
-        className="w-full py-4 bg-bold-red hover:bg-bold-red/90 text-white rounded-lg font-bold text-lg transition-colors shadow-md"
+        className="w-full py-3 bg-red-500 text-white hover:bg-red-300 rounded-lg font-bold text-lg transition-colors shadow-md"
       >
         Calculate Winner
       </button>
 
       {/* Result Display */}
       {result && (
-        <div className="mt-6 p-6 rounded-xl border-2 border-light-red shadow-lg">
+        <div className="mt-6 p-6 rounded-xl border-2 border-red-200">
           <div className="text-center">
-            <div className="text-4xl font-bold text-bold-red mb-4">{result.winner}</div>
-            <div className="text-xl text-ink-black font-semibold">
+            <div className="text-3xl font-bold text-red-500 mb-4">{result.winner}</div>
+            <div className="text-xl text-black font-semibold">
               Advances{' '}
               <span className="font-bold text-light-red text-2xl">{result.advancement}</span> rank
               {result.advancement > 1 ? 's' : ''}
@@ -336,21 +324,10 @@ const Scoring: React.FC = () => {
       {/* Reset Button */}
       <button
         onClick={reset}
-        className="w-full py-3 bg-ink-black/10 hover:bg-ink-black/20 text-ink-black rounded-lg font-semibold transition-colors"
+        className="w-full py-3 bg-red-100 hover:bg-black/20 text-black rounded-lg font-semibold transition-colors"
       >
         Reset Round
       </button>
-
-      {/* Instructions */}
-      <div className="mt-6 p-5 bg-paper-white border-2 border-bold-red/20 rounded-lg">
-        <h4 className="font-bold mb-3 text-sm text-bold-red uppercase tracking-wide">How to Use</h4>
-        <ol className="text-sm text-ink-black/80 space-y-2 list-decimal list-inside leading-relaxed">
-          <li>Select game mode (4 or 6 players)</li>
-          <li>Enter each player's finishing position (1 = first place)</li>
-          <li>Click "Calculate Winner" to see results</li>
-          <li>Advancement is automatic based on finish positions</li>
-        </ol>
-      </div>
     </div>
   )
 }

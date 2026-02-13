@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-paper-white text-ink-black;
+    @apply bg-paper-white text-black;
   }
 }
 
@@ -14,11 +14,11 @@
   }
 
   .card-red {
-    @apply border-bold-red text-bold-red;
+    @apply border-red-500 text-red-500;
   }
 
   .card-black {
-    @apply border-ink-black text-ink-black;
+    @apply border-black text-black;
   }
 
   .tab-button {
@@ -26,7 +26,7 @@
   }
 
   .tab-active {
-    @apply border-b-2 border-bold-red text-bold-red;
+    @apply border-b-2 border-red-500 text-red-500;
   }
 
   .tab-inactive {

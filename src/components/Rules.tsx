@@ -30,7 +30,9 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         <h4 className="font-semibold mt-3 mb-2">Overall game</h4>
         <ul className="list-disc ml-5 space-y-1 ">
           <li>Advance through ranks</li>
-          <li>Win an Ace round within 3 tries</li>
+          <li>
+            Win an <b>Ace round</b> within 3 tries
+          </li>
         </ul>
       </section>
 
@@ -40,18 +42,22 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
 
         <h4 className="font-semibold text-gray-800 mt-3 mb-2">Decks</h4>
         <ul className="list-disc ml-5 space-y-1 ">
-          <li>4 players → 2 decks (108 cards incl. jokers)</li>
-          <li>6 players → 3 decks</li>
+          <li>4 players: 2 decks</li>
+          <li>6 players: 3 decks</li>
         </ul>
 
         <h4 className="font-semibold text-gray-800 mt-3 mb-2">Cards</h4>
         <ul className="list-disc ml-5 space-y-1 ">
-          <li>27 cards per player</li>
+          <li>
+            <b>27</b> cards per player
+          </li>
         </ul>
 
         <h4 className="font-semibold text-gray-800 mt-3 mb-2">Teams</h4>
         <ul className="list-disc ml-5 space-y-1 ">
-          <li>2 teams</li>
+          <li>
+            <b>2 teams</b>
+          </li>
           <li>Sit every other person (partners across)</li>
         </ul>
       </section>
@@ -61,30 +67,40 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">How to Play</h3>
 
         <ul className="list-disc ml-5 space-y-2 ">
-          <li>First player leads with any valid combination</li>
+          <li>
+            First player leads with any <b>valid combination</b>
+          </li>
 
           <li>
             Others must:
             <ul className="list-disc ml-5 mt-1 space-y-1">
-              <li>Play the same type of combination AND</li>
-              <li>Beat it with higher value, OR</li>
+              <li>
+                Play the <b>same type</b> of combination AND
+              </li>
+              <li>
+                Beat it with <b>higher value</b>, OR
+              </li>
               <li>Pass</li>
             </ul>
           </li>
 
           <li>
-            Bombs can beat any non-bomb combination see(
+            <b>Bombs</b> can beat any non-bomb combination (see{' '}
             <button
               onClick={() => setActiveTab('plays')}
-              className="text-chinese-red underline hover:opacity-80"
+              className="text-red-500 underline hover:opacity-80"
             >
               Plays
             </button>{' '}
             for bomb types)
           </li>
 
-          <li>Highest combination wins the round</li>
-          <li>Round winner leads next round</li>
+          <li>
+            <b>Highest combination wins the round</b>
+          </li>
+          <li>
+            Round winner <b>leads next round</b>
+          </li>
         </ul>
       </section>
 
@@ -96,7 +112,7 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
 
         <ul className="list-disc ml-5 space-y-2 ">
           <li>
-            Each round has a rank card:
+            Each round has a <b>rank card</b>:
             <ul className="list-disc ml-5 mt-1 space-y-1">
               <li>Higher than all regular cards</li>
               <li>Lower than jokers</li>
@@ -104,7 +120,7 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
           </li>
 
           <li>
-            Heart of the rank = wild card:
+            Heart of the rank = <b>wild card</b>:
             <ul className="list-disc ml-5 mt-1 space-y-1">
               <li>Can act as any non-joker card</li>
             </ul>
@@ -112,7 +128,7 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         </ul>
 
         {/* Example */}
-        <div className="mt-4 p-4 bg-red-100 border-2 border-bold-red rounded-lg">
+        <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-lg">
           <h4 className="font-semibold text-sm mb-2">Example (Rank = 2)</h4>
 
           <ul className="list-disc ml-5 text-sm  space-y-1">
@@ -135,11 +151,15 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         <h4 className="font-semibold text-gray-800 mt-3 mb-2">General Scoring</h4>
 
         <ul className="list-disc ml-5 space-y-2 ">
-          <li>Rank starts at 2 for both teams</li>
+          <li>
+            Rank starts at <b>2</b> for both teams
+          </li>
 
           <li>Winning team advances ranks based on finishing positions</li>
 
-          <li>Next round rank = previous rank + places advanced</li>
+          <li>
+            <b>Next round rank = previous rank + places advanced</b>
+          </li>
 
           <li>
             4 person game:
@@ -159,10 +179,21 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
               <li>1st + any + 4th = 3 places</li>
             </ul>
           </li>
+
+          <li>
+            Go to{' '}
+            <button
+              onClick={() => setActiveTab('scoring')}
+              className="text-red-500 underline hover:opacity-80"
+            >
+              Scoring
+            </button>{' '}
+            for automatic scoring
+          </li>
         </ul>
 
         {/* Example */}
-        <div className="mt-4 p-4 bg-red-100 border-2 border-bold-red rounded-lg">
+        <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-lg">
           <h4 className="font-semibold text-sm mb-2">Example</h4>
 
           <ul className="list-disc ml-5 text-sm space-y-1">
@@ -176,7 +207,9 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         <h4 className="font-semibold text-gray-800 mt-4 mb-2">Winning the Ace Round</h4>
 
         <ul className="list-disc ml-5 space-y-2">
-          <li>Once a team reaches Ace rank, they have 3 tries</li>
+          <li>
+            Once a team reaches Ace rank, they have <b>3 tries</b>
+          </li>
           <li>To win: get 1st and NOT last place</li>
           <li>If they fail 3 times, they return to rank 2</li>
         </ul>
@@ -208,7 +241,7 @@ const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
         </ul>
 
         {/* Example */}
-        <div className="mt-4 p-4 bg-red-100 border-2 border-bold-red rounded-lg">
+        <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-lg">
           <h4 className="font-semibold text-sm mb-2">Example (Rank = 3)</h4>
 
           <p className="text-sm">
