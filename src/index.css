@@ -12,23 +12,23 @@
   .card {
     @apply relative w-12 h-16 bg-white border-2 rounded shadow-sm flex items-center justify-center font-bold;
   }
-  
+
   .card-red {
     @apply border-bold-red text-bold-red;
   }
-  
+
   .card-black {
     @apply border-ink-black text-ink-black;
   }
-  
+
   .tab-button {
     @apply flex-1 py-3 text-center font-medium transition-colors;
   }
-  
+
   .tab-active {
     @apply border-b-2 border-bold-red text-bold-red;
   }
-  
+
   .tab-inactive {
     @apply text-gray-500 hover:text-gray-700;
   }

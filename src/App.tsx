@@ -1,41 +1,38 @@
-import React, { useState } from 'react';
-import Rules from './components/Rules';
-import Plays from './components/Plays';
-import Scoring from './components/Scoring';
-import './index.css';
+import React, { useState } from 'react'
+import Rules from './components/Rules'
+import Plays from './components/Plays'
+import Scoring from './components/Scoring'
+import './index.css'
 
-type Tab = 'rules' | 'plays' | 'scoring';
+type Tab = 'rules' | 'plays' | 'scoring'
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('rules');
+  const [activeTab, setActiveTab] = useState<Tab>('rules')
 
   const renderContent = () => {
     switch (activeTab) {
       case 'rules':
-        return <Rules />;
+        return <Rules setActiveTab={setActiveTab} />
       case 'plays':
-        return <Plays />;
+        return <Plays />
       case 'scoring':
-        return <Scoring />;
+        return <Scoring />
       default:
-        return <Rules />;
+        return <Rules setActiveTab={setActiveTab} />
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-paper-white">
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-center text-ink-black">
-            掼蛋规则
-          </h1>
-          <p className="text-center text-sm text-gray-500 mt-1">Guan Dan Rules</p>
+        <div className="max-w-2xl mx-auto px-4 py-6">
+          <h1 className="text-2xl font-bold text-center text-ink-black">Guan Dan (掼蛋)</h1>
         </div>
       </header>
 
       {/* Tab Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-[72px] z-10">
+      <nav className="bg-white border-b border-gray-200 sticky top-[60px] z-10">
         <div className="max-w-2xl mx-auto flex">
           <button
             onClick={() => setActiveTab('rules')}
@@ -59,16 +56,14 @@ function App() {
       </nav>
 
       {/* Content */}
-      <main className="max-w-2xl mx-auto">
-        {renderContent()}
-      </main>
+      <main className="max-w-2xl mx-auto">{renderContent()}</main>
 
       {/* Footer */}
       <footer className="max-w-2xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
         <p>Made for Guan Dan players • 掼蛋快乐</p>
       </footer>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

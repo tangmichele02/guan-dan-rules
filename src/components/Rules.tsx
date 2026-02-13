@@ -1,129 +1,224 @@
-import React from 'react';
+import React from 'react'
 
-const Rules: React.FC = () => {
+type Tab = 'rules' | 'plays' | 'scoring'
+
+interface RulesProps {
+  setActiveTab: React.Dispatch<React.SetStateAction<Tab>>
+}
+
+const Rules: React.FC<RulesProps> = ({ setActiveTab }) => {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 max-w-3xl">
+      {/* Title */}
       <section>
-        <h2 className="text-2xl font-bold mb-4 text-bold-red">掼蛋 (Guàn Dàn)</h2>
-        <p className="text-gray-700 leading-relaxed mb-4">
-          Guan Dan is a popular Chinese climbing game for four players in fixed partnerships. 
-          Partners sit across from each other and work together to finish their hands first.
+        <h2 className="text-2xl font-bold mb-3">Guan Dan (掼蛋)</h2>
+        <p className="leading-relaxed">
+          A Chinese climbing + card-shedding game for 4–6 players played in fixed partnerships (sit
+          across from your teammate).
         </p>
       </section>
 
+      {/* Objective */}
       <section>
         <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Objective</h3>
-        <p className="text-gray-700 leading-relaxed">
-          Teams advance through ranks (2 through A) by finishing rounds first. 
-          The first team to complete all ranks wins.
-        </p>
+
+        <h4 className="font-semibold mt-3 mb-2">Each round</h4>
+        <ul className="list-disc ml-5 space-y-1 ">
+          <li>Get rid of all your cards as fast as possible</li>
+        </ul>
+
+        <h4 className="font-semibold mt-3 mb-2">Overall game</h4>
+        <ul className="list-disc ml-5 space-y-1 ">
+          <li>Advance through ranks</li>
+          <li>Win an Ace round within 3 tries</li>
+        </ul>
       </section>
 
+      {/* Setup */}
       <section>
         <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Setup</h3>
-        <ul className="space-y-2 text-gray-700">
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Two decks of cards (108 cards total including jokers)</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Four players in two teams</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>27 cards dealt to each player</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Teams start at rank 2 and progress upward</span>
-          </li>
+
+        <h4 className="font-semibold text-gray-800 mt-3 mb-2">Decks</h4>
+        <ul className="list-disc ml-5 space-y-1 ">
+          <li>4 players → 2 decks (108 cards incl. jokers)</li>
+          <li>6 players → 3 decks</li>
+        </ul>
+
+        <h4 className="font-semibold text-gray-800 mt-3 mb-2">Cards</h4>
+        <ul className="list-disc ml-5 space-y-1 ">
+          <li>27 cards per player</li>
+        </ul>
+
+        <h4 className="font-semibold text-gray-800 mt-3 mb-2">Teams</h4>
+        <ul className="list-disc ml-5 space-y-1 ">
+          <li>2 teams</li>
+          <li>Sit every other person (partners across)</li>
         </ul>
       </section>
 
+      {/* How to Play */}
       <section>
-        <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Current Rank Cards</h3>
-        <p className="text-gray-700 leading-relaxed mb-2">
-          The current rank cards (e.g., all 5s when playing at rank 5) are special:
-        </p>
-        <ul className="space-y-2 text-gray-700">
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Act as wild cards and can be used as any card</span>
+        <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">How to Play</h3>
+
+        <ul className="list-disc ml-5 space-y-2 ">
+          <li>First player leads with any valid combination</li>
+
+          <li>
+            Others must:
+            <ul className="list-disc ml-5 mt-1 space-y-1">
+              <li>Play the same type of combination AND</li>
+              <li>Beat it with higher value, OR</li>
+              <li>Pass</li>
+            </ul>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Rank higher than regular cards but lower than jokers</span>
+
+          <li>
+            Bombs can beat any non-bomb combination see(
+            <button
+              onClick={() => setActiveTab('plays')}
+              className="text-chinese-red underline hover:opacity-80"
+            >
+              Plays
+            </button>{' '}
+            for bomb types)
           </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Can form bombs and powerful combinations</span>
-          </li>
+
+          <li>Highest combination wins the round</li>
+          <li>Round winner leads next round</li>
         </ul>
       </section>
 
+      {/* Rank Card */}
       <section>
-        <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Tribute (进贡)</h3>
-        <p className="text-gray-700 leading-relaxed mb-2">
-          After each round, the losing team pays tribute to the winning team:
-        </p>
-        <ul className="space-y-2 text-gray-700">
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Each loser gives their highest card to their opponent</span>
+        <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">
+          Rank Card / Trump Card
+        </h3>
+
+        <ul className="list-disc ml-5 space-y-2 ">
+          <li>
+            Each round has a rank card:
+            <ul className="list-disc ml-5 mt-1 space-y-1">
+              <li>Higher than all regular cards</li>
+              <li>Lower than jokers</li>
+            </ul>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Winners return any card of their choice</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>If one player finishes first with no cards left (双下), double tribute is paid</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>If players finish first and last simultaneously, no tribute</span>
+
+          <li>
+            Heart of the rank = wild card:
+            <ul className="list-disc ml-5 mt-1 space-y-1">
+              <li>Can act as any non-joker card</li>
+            </ul>
           </li>
         </ul>
+
+        {/* Example */}
+        <div className="mt-4 p-4 bg-red-100 border-2 border-bold-red rounded-lg">
+          <h4 className="font-semibold text-sm mb-2">Example (Rank = 2)</h4>
+
+          <ul className="list-disc ml-5 text-sm  space-y-1">
+            <li>♥2 + 4-4-4 → 4-4-4-4</li>
+            <li>♥2 + 3-3 → 3-3-3</li>
+          </ul>
+
+          <p className="text-sm text-gray-600 mt-2 italic">
+            A good use is completing a straight flush by replacing the wrong suit.
+          </p>
+        </div>
       </section>
 
+      {/* Rank Progression */}
       <section>
-        <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Basic Gameplay</h3>
-        <ul className="space-y-2 text-gray-700">
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>First player leads any valid combination</span>
+        <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">
+          Rank Progression + Game Score
+        </h3>
+
+        <h4 className="font-semibold text-gray-800 mt-3 mb-2">General Scoring</h4>
+
+        <ul className="list-disc ml-5 space-y-2 ">
+          <li>Rank starts at 2 for both teams</li>
+
+          <li>Winning team advances ranks based on finishing positions</li>
+
+          <li>Next round rank = previous rank + places advanced</li>
+
+          <li>
+            4 person game:
+            <ul className="list-disc ml-5 mt-1 space-y-1">
+              <li>1st + 2nd = 3 places</li>
+              <li>1st + 3rd = 2 places</li>
+              <li>1st + 4th = 1 place</li>
+            </ul>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Others must follow with the same type of combination or pass</span>
+
+          <li>
+            6 person game (check lowest teammate first):
+            <ul className="list-disc ml-5 mt-1 space-y-1">
+              <li>1st + 2nd + 3rd = 4 places</li>
+              <li>1st + any + 6th = 1 place</li>
+              <li>1st + any + 5th = 2 places</li>
+              <li>1st + any + 4th = 3 places</li>
+            </ul>
           </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Bombs can be played on any combination</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Highest combination wins the trick</span>
-          </li>
-          <li className="flex items-start">
-            <span className="mr-2">•</span>
-            <span>Winner of trick leads the next</span>
-          </li>
+        </ul>
+
+        {/* Example */}
+        <div className="mt-4 p-4 bg-red-100 border-2 border-bold-red rounded-lg">
+          <h4 className="font-semibold text-sm mb-2">Example</h4>
+
+          <ul className="list-disc ml-5 text-sm space-y-1">
+            <li>Game 1 (Rank 2): Team A 1st & 3rd → advance 2 → rank 4</li>
+            <li>Game 2 (Rank 4): Team B 1st & 2nd → advance 3 → rank 7</li>
+            <li>Game 3 (Rank 7): Team A 1st & 2nd → advance 3 → rank 10</li>
+          </ul>
+        </div>
+
+        {/* Ace Round */}
+        <h4 className="font-semibold text-gray-800 mt-4 mb-2">Winning the Ace Round</h4>
+
+        <ul className="list-disc ml-5 space-y-2">
+          <li>Once a team reaches Ace rank, they have 3 tries</li>
+          <li>To win: get 1st and NOT last place</li>
+          <li>If they fail 3 times, they return to rank 2</li>
         </ul>
       </section>
 
+      {/* Card Ranking */}
       <section>
         <h3 className="text-xl font-semibold mb-3 border-b border-gray-200 pb-2">Card Ranking</h3>
-        <p className="text-gray-700 leading-relaxed">
-          Big Joker {'>'} Little Joker {'>'} Current Rank {'>'} A {'>'} K {'>'} Q {'>'} J {'>'} 10 {'>'} 9 {'>'} 8 {'>'} 7 {'>'} 6 {'>'} 5 {'>'} 4 {'>'} 3 {'>'} 2
-        </p>
-        <p className="text-sm text-gray-500 mt-2 italic">
-          (Note: Current rank cards are promoted above all natural cards but below jokers)
-        </p>
+
+        <p className=" mb-2">From highest → lowest:</p>
+
+        <ul className="list-disc ml-5 space-y-1 ">
+          <li>Big Joker</li>
+          <li>Little Joker</li>
+          <li>Rank Card</li>
+          <li>A</li>
+          <li>K</li>
+          <li>Q</li>
+          <li>J</li>
+          <li>10</li>
+          <li>9</li>
+          <li>8</li>
+          <li>7</li>
+          <li>6</li>
+          <li>5</li>
+          <li>4</li>
+          <li>3</li>
+          <li>2</li>
+        </ul>
+
+        {/* Example */}
+        <div className="mt-4 p-4 bg-red-100 border-2 border-bold-red rounded-lg">
+          <h4 className="font-semibold text-sm mb-2">Example (Rank = 3)</h4>
+
+          <p className="text-sm">
+            Big Joker {'>'} Little Joker {'>'} <u>3</u> {'>'} A {'>'} K {'>'} Q {'>'} J {'>'} 10{' '}
+            {'>'} 9 {'>'} 8 {'>'} 7 {'>'} 6 {'>'} 5 {'>'} 4 {'>'} 2
+          </p>
+        </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Rules;
+export default Rules

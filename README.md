@@ -70,7 +70,6 @@ colors: {
   'bold-red': '#DC143C',
   'ink-black': '#1a1a1a',
   'paper-white': '#faf9f6',
-  'gold': '#D4AF37',
 }
 ```
 
@@ -78,7 +77,7 @@ colors: {
 
 Currently using CSS-based card representations. To add custom card images:
 
-1. **Option 1 - Free SVG cards**: 
+1. **Option 1 - Free SVG cards**:
    - Download from https://github.com/htdebeer/SVG-cards
    - Place in `public/cards/` folder
    - Update `Card.tsx` component to use image sources
@@ -88,10 +87,11 @@ Currently using CSS-based card representations. To add custom card images:
    - Update Card component to use font glyphs
 
 Example for using images:
+
 ```typescript
 // In Card.tsx
-<img 
-  src={`/cards/${suit}_${rank}.svg`} 
+<img
+  src={`/cards/${suit}_${rank}.svg`}
   alt={`${rank}${suit}`}
   className="w-12 h-16"
 />
@@ -106,6 +106,7 @@ Example for using images:
 ### Scoring Logic
 
 The scoring system currently supports:
+
 - Single Up (单下): +1 rank
 - Double Up (双下): +2 ranks
 - Triple Up (三下): +3 ranks
@@ -117,16 +118,19 @@ To modify scoring rules, edit the `recordRound` function in `src/components/Scor
 This app can be deployed to:
 
 ### Vercel (Recommended)
+
 ```bash
 yarn global add vercel
 vercel
 ```
 
 ### Netlify
+
 1. Build the app: `yarn build`
 2. Drag and drop the `build` folder to Netlify
 
 ### GitHub Pages
+
 ```bash
 yarn add -D gh-pages
 
