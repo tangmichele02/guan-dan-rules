@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Rules from './components/Rules'
 import Plays from './components/Plays'
 import Scoring from './components/Scoring'
+import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 
 type Tab = 'rules' | 'plays' | 'scoring'
@@ -68,6 +69,7 @@ function App() {
       <footer className="max-w-2xl mx-auto px-4 py-6 text-center text-sm text-gray-500">
         <p>Made for Guan Dan players • 掼蛋快乐</p>
       </footer>
+      <Analytics />
     </div>
   )
 }
